@@ -2,3 +2,36 @@
   width: 100vw;
   height: 100vh;
 }
+
+.flight-info {
+  position: absolute;
+  top: 10vh;
+  left: 1vw;
+  background: rgba(42, 42, 42, 0.9);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  z-index: 1000;
+  max-width: 300px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.flight-info-title {
+  margin-top: 0.25vh;
+  margin-bottom: 1vh;
+  font-weight: bold;
+  color: #48b1ff;
+  font-size: 16px;
+}
+
+.flight-info-text {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.flight-info-source {
+  margin-top: 0.5vh;
+}
