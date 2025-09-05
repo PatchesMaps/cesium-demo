@@ -38,7 +38,10 @@ declare global {
   }
 }
 
-window.CESIUM_BASE_URL = '/static/Cesium/';
+// Set the correct base URL for Cesium assets based on environment
+const isProduction = import.meta.env.PROD;
+const baseUrl = isProduction ? '/cesium-demo/' : '/';
+window.CESIUM_BASE_URL = `${baseUrl}static/Cesium/`;
 
 Cesium.Ion.defaultAccessToken = CESIUM_ION_ACCESS_TOKEN;
 
