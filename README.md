@@ -1,69 +1,112 @@
-# React + TypeScript + Vite
+# Cesium Flight Tracker Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A real-time flight tracking application built with React, TypeScript, and Cesium.js that displays live aircraft data from the OpenSky Network API on a 3D globe.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Real-time Flight Tracking**: Displays live aircraft positions from the OpenSky Network API
+- **3D Visualization**: Interactive 3D globe powered by Cesium.js with photorealistic terrain
+- **Aircraft Information**: Detailed flight information including callsign, altitude, speed, heading, and more
+- **Auto-refresh**: Updates flight data every 5 minutes automatically
+- **Fallback Data**: Uses static flight data when the OpenSky API is unavailable
+- **Responsive UI**: Flight statistics panel with real-time update indicators
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19** with TypeScript
+- **Cesium.js** for 3D geospatial visualization
+- **Vite** for fast development and building
+- **OpenSky Network API** for real-time flight data
+- **ESLint** for code quality
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Before running this project, you'll need:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Cesium Ion Access Token**: 
+   - Sign up at [Cesium Ion](https://cesium.com/ion/)
+   - Get your access token from the dashboard
+
+2. **Node.js**: Version 18 or higher
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd cesium-demo
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Then edit `.env` and add your Cesium Ion access token:
+   ```bash
+   VITE_CESIUM_ION_ACCESS_TOKEN=your_actual_token_here
+   ```
+
+## Development
+
+Start the development server:
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will be available at `http://localhost:5173`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Building
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Build for production:
+```bash
+npm run build
 ```
+
+Preview the production build:
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── cesium.tsx          # Main Cesium component with flight tracking
+│   └── cesium.css          # Cesium-specific styles
+├── static/
+│   └── flightData.json     # Fallback flight data
+├── util/
+│   └── constants.ts        # Configuration constants
+├── App.tsx                 # Main application component
+└── main.tsx               # Application entry point
+```
+
+## Data Sources
+
+- **Primary**: [OpenSky Network API](https://opensky-network.org/) - Real-time flight data
+- **Fallback**: Static flight data for offline/API failure scenarios
+- **Terrain**: Cesium Ion photorealistic 3D terrain tiles
+
+## API Rate Limiting
+
+The OpenSky Network API has rate limits. The application:
+- Updates every 5 minutes to respect rate limits
+- Automatically falls back to cached data if the API is unavailable
+- Displays clear indicators when using fallback data
+
+## Browser Support
+
+This application requires a modern browser with WebGL support for Cesium.js visualization.
+
+## License
+
+This project is for demonstration purposes. Please check the licenses of:
+- [Cesium.js](https://cesium.com/legal/terms-of-service/)
+- [OpenSky Network](https://opensky-network.org/about/data-collection) for data usage terms
