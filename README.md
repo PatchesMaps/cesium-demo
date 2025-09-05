@@ -133,3 +133,5 @@ This application requires a modern browser with WebGL support for Cesium.js visu
 This project is for demonstration purposes. Please check the licenses of:
 - [Cesium.js](https://cesium.com/legal/terms-of-service/)
 - [OpenSky Network](https://opensky-network.org/about/data-collection) for data usage terms
+
+# [View Live!](https://patchesmaps.github.io/cesium-demo/)
