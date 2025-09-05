@@ -35,3 +35,12 @@
 .flight-info-source {
   margin-top: 0.5vh;
 }
+
+.flight-info-table {
+  width: 100%;
+  position: relative;
+  display: table;
+  z-index: 99999;
+  color: black;
+  width: 100%;
+}

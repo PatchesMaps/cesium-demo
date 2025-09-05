@@ -71,7 +71,13 @@ const fetchFlightData = async (): Promise<FlightState[]> => {
     const response = await fetch('https://opensky-network.org/api/states/all'); // opensky rate limits which restricts our ability to further narrow our request
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.warn(`Failed to fetch flight data from OpenSky API. \nHTTP Error: ${response.status} \nUsing static fallback data...`);
+
+      const fallbackRes = await fetch('/flightData.json');
+      if (!fallbackRes.ok) throw new Error(`Failed to fetch fallback flight data. HTTP Error: ${fallbackRes.status}`);
+
+      const fallbackData = await fallbackRes.json();
+      return parseFlightData(fallbackData);
     }
 
     const data: OpenSkyResponse = await response.json();
@@ -82,37 +88,35 @@ const fetchFlightData = async (): Promise<FlightState[]> => {
   }
 };
 
-// Function to create a simple aircraft icon canvas
+// Function to create a simple aircraft icon canvas using Unicode airplane
 const createAircraftIcon = (rotation: number = 0): HTMLCanvasElement => {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
   if (!context) throw new Error('Unable to create canvas context');
 
-  canvas.width = 20;
-  canvas.height = 20;
+  canvas.width = 24;
+  canvas.height = 24;
 
-  context.fillStyle = '#FFD700'; // Gold color
-  context.strokeStyle = '#000000';
-  context.lineWidth = 1;
+  // Clear canvas with transparent background
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
   // Save context and translate to center
   context.save();
-  context.translate(10, 10);
+  context.translate(12, 12);
   context.rotate(rotation);
 
-  // Draw simple aircraft shape
-  context.beginPath();
-  // Fuselage
-  context.moveTo(0, -8);
-  context.lineTo(0, 8);
-  // Wings
-  context.moveTo(-6, 0);
-  context.lineTo(6, 0);
-  // Tail
-  context.moveTo(-2, 6);
-  context.lineTo(2, 6);
+  // Set text properties for the airplane Unicode character
+  context.font = '16px Arial';
+  context.fillStyle = '#FFD700'; // Gold color
+  context.strokeStyle = '#000000';
+  context.lineWidth = 1;
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
 
-  context.stroke();
+  // Draw the airplane Unicode character ✈
+  context.fillText('\u2708', 0, 0);
+  context.strokeText('\u2708', 0, 0);
+
   context.restore();
 
   return canvas;
@@ -162,7 +166,7 @@ const createAircraftEntities = (viewer: Cesium.Viewer, flightData: FlightState[]
         description: `
           <div style="font-family: Arial, sans-serif;">
             <h3 style="margin-top: 0; color: #48b1ff;">${flight.callsign?.trim() || flight.icao24}</h3>
-            <table style="border-collapse: collapse; width: 100%;">
+            <table class="flight-info-table" style="  width: 100%; position: relative; display: table; z-index: 99999; color: black; width: 100%;" >
               <tr><td><strong>Country:</strong></td><td>${flight.origin_country}</td></tr>
               <tr><td><strong>ICAO24:</strong></td><td>${flight.icao24}</td></tr>
               <tr><td><strong>Altitude:</strong></td><td>${altitudeFeet} ft (${altitude.toFixed(0)} m)</td></tr>
