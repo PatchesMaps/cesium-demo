@@ -166,7 +166,7 @@ const createAircraftEntities = (viewer: Cesium.Viewer, flightData: FlightState[]
         description: `
           <div style="font-family: Arial, sans-serif;">
             <h3 style="margin-top: 0; color: #48b1ff;">${flight.callsign?.trim() || flight.icao24}</h3>
-            <table class="flight-info-table" style="  width: 100%; position: relative; display: table; z-index: 99999; color: black; width: 100%;" >
+            <table class="flight-info-table" style="width: 100%; position: relative; display: table; z-index: 99999; color: black;" >
               <tr><td><strong>Country:</strong></td><td>${flight.origin_country}</td></tr>
               <tr><td><strong>ICAO24:</strong></td><td>${flight.icao24}</td></tr>
               <tr><td><strong>Altitude:</strong></td><td>${altitudeFeet} ft (${altitude.toFixed(0)} m)</td></tr>
