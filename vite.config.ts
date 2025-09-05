@@ -8,6 +8,7 @@ const CESIUM_BASE_URL = "static/Cesium/";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/cesium-demo/' : '/',
   plugins: [
     react(),
     viteStaticCopy({
