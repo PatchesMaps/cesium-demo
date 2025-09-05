@@ -80,8 +80,6 @@ src/
 ├── components/
 │   ├── cesium.tsx          # Main Cesium component with flight tracking
 │   └── cesium.css          # Cesium-specific styles
-├── static/
-│   └── flightData.json     # Fallback flight data
 ├── util/
 │   └── constants.ts        # Configuration constants
 ├── App.tsx                 # Main application component
