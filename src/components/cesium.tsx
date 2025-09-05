@@ -205,8 +205,8 @@ const CesiumComponent: React.FC = () => {
       });
 
       const googlePhotoRealistic = await Cesium.Cesium3DTileset.fromIonAssetId(2275207);
-      const manhatan = await Cesium.Cesium3DTileset.fromIonAssetId(3691029);
-      const datasets = [googlePhotoRealistic, manhatan];
+      const manhattan = await Cesium.Cesium3DTileset.fromIonAssetId(3691029);
+      const datasets = [googlePhotoRealistic, manhattan];
       const { primitives } = viewer.scene;
 
       datasets.forEach(dataset => {
