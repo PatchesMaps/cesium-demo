@@ -39,8 +39,12 @@ declare global {
 }
 
 // Set the correct base URL for Cesium assets based on environment
-const isProduction = import.meta.env.PROD;
-const baseUrl = isProduction ? '/cesium-demo/' : '/';
+const getBaseUrl = () => {
+  const isProduction = import.meta.env.PROD;
+  return isProduction ? '/cesium-demo/' : '/';
+};
+
+const baseUrl = getBaseUrl();
 window.CESIUM_BASE_URL = `${baseUrl}static/Cesium/`;
 
 Cesium.Ion.defaultAccessToken = CESIUM_ION_ACCESS_TOKEN;
@@ -76,7 +80,8 @@ const fetchFlightData = async (): Promise<FlightState[]> => {
     if (!response.ok) {
       console.warn(`Failed to fetch flight data from OpenSky API. \nHTTP Error: ${response.status} \nUsing static fallback data...`);
 
-      const fallbackRes = await fetch('/flightData.json');
+      const baseUrl = getBaseUrl();
+      const fallbackRes = await fetch(`${baseUrl}flightData.json`);
       if (!fallbackRes.ok) throw new Error(`Failed to fetch fallback flight data. HTTP Error: ${fallbackRes.status}`);
 
       const fallbackData = await fallbackRes.json();
