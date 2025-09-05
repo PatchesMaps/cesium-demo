@@ -57,6 +57,7 @@ Before running this project, you'll need:
 Start the development server:
 ```bash
 npm run dev
+
 ```
 
 The application will be available at `http://localhost:5173`
@@ -71,6 +72,30 @@ npm run build
 Preview the production build:
 ```bash
 npm run preview
+```
+
+## Deployment to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages. To deploy:
+
+1. **Set up Repository Secrets**:
+   - Go to your GitHub repository settings
+   - Navigate to Secrets and Variables > Actions
+   - Add a new repository secret: `VITE_CESIUM_ION_ACCESS_TOKEN` with your Cesium Ion token
+
+2. **Enable GitHub Pages**:
+   - Go to repository Settings > Pages
+   - Set Source to "GitHub Actions"
+
+3. **Deploy**:
+   - Push to the `gh-pages` branch
+   - The GitHub Action will automatically build and deploy
+   - Your site will be available at: `https://yourusername.github.io/cesium-demo/`
+
+### Manual Deployment
+You can also deploy manually:
+```bash
+npm run deploy
 ```
 
 ## Project Structure
